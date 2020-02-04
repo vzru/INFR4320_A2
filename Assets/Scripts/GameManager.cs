@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void OnGUI()
     {
         filePath = GUI.TextField(new Rect(800, 50, 300, 30), filePath, 25);
-        if(GUI.Button(new Rect(1100, 50, 200, 30), "Load"))
+        if (GUI.Button(new Rect(1100, 50, 200, 30), "Load"))
         {
             if (filePath != "")
             {
@@ -130,7 +130,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Application.Quit();
+        }
     }
 
 
