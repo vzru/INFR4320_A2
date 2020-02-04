@@ -25,8 +25,8 @@ public enum DoorType
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject door;
-    private List<GameObject> doors;
+    public DoorProp door;
+    private List<DoorProp> doors;
     public Prop DoorProps;
 
     public string filePath = "probabilities.txt";
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
                 for (int i = 0; i < numOfDoors; i++)
                 {
-                    GameObject newInstance = Instantiate(door, new Vector3(-50.0f + (i * 5.0f), 2.0f, 10.0f), Quaternion.identity);
+                    DoorProp newInstance = Instantiate(door, new Vector3(-50.0f + (i * 5.0f), 2.0f, 10.0f), Quaternion.identity);
                     Renderer renderer = newInstance.GetComponent<Renderer>();
                     DoorType doorProp = DoorType.NotHotNotNoisy;
 
@@ -51,34 +51,42 @@ public class GameManager : MonoBehaviour
                     if (randomNum <= (currentNum += DoorProps.HotNoisySafe))
                     {
                         doorProp = DoorType.HotNoisy;
+                        newInstance.safe = true;
                     }
                     else if (randomNum <= (currentNum += DoorProps.HotNoisyNSafe))
                     {
                         doorProp = DoorType.HotNoisy;
+                        newInstance.safe = false;
                     }
                     else if (randomNum <= (currentNum += DoorProps.HotNNoisySafe))
                     {
                         doorProp = DoorType.HotNotNoisy;
+                        newInstance.safe = true;
                     }
                     else if (randomNum <= (currentNum += DoorProps.HotNNoisyNSafe))
                     {
                         doorProp = DoorType.HotNotNoisy;
+                        newInstance.safe = false;
                     }
                     else if (randomNum <= (currentNum += DoorProps.NHotNoisySafe))
                     {
                         doorProp = DoorType.NotHotNoisy;
+                        newInstance.safe = true;
                     }
                     else if (randomNum <= (currentNum += DoorProps.NHotNoisyNSafe))
                     {
                         doorProp = DoorType.NotHotNoisy;
+                        newInstance.safe = false;
                     }
                     else if (randomNum <= (currentNum += DoorProps.NHotNNoisySafe))
                     {
                         doorProp = DoorType.NotHotNotNoisy;
+                        newInstance.safe = true;
                     }
                     else if (randomNum <= (currentNum += DoorProps.NHotNNoisyNSafe))
                     {
                         doorProp = DoorType.NotHotNotNoisy;
+                        newInstance.safe = false;
                     }
 
                     Debug.Log(i + ", " + randomNum + ", " + currentNum + ", " + doorProp);
@@ -104,7 +112,7 @@ public class GameManager : MonoBehaviour
                     doors.Add(newInstance);
                 }
 
-                foreach (GameObject Door in doors)
+                foreach (DoorProp Door in doors)
                 {
                     Door.transform.parent = this.transform;
                 }
@@ -116,8 +124,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        doors = new List<GameObject>();
-
+        doors = new List<DoorProp>();
     }
 
     // Update is called once per frame

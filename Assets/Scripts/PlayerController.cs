@@ -13,11 +13,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             transform.position += new Vector3(0.0f, 0.0f, 0.1f);
         }
-        if(Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
             transform.position += new Vector3(0.0f, 0.0f, -0.1f);
         }
@@ -28,6 +28,23 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(0.1f, 0.0f, 0.0f);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        DoorProp door = collision.collider.GetComponent<DoorProp>();
+        if (door != null)
+        {
+            Renderer renderer = door.GetComponent<Renderer>();
+            if (door.safe)
+            {
+                renderer.material.SetColor("_Color", new Color(0.0f, 1.0f, 0.0f, 1.0f));
+            }
+            if (!door.safe)
+            {
+                renderer.material.SetColor("_Color", new Color(0.0f, 0.0f, 0.0f, 1.0f));
+            }
         }
     }
 }
