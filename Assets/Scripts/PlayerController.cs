@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
             {
                 renderer.material.SetColor("_Color", new Color(0.0f, 1.0f, 0.0f, 1.0f));
             }
-            if (!door.safe)
+            else if (!door.safe)
             {
                 renderer.material.SetColor("_Color", new Color(0.0f, 0.0f, 0.0f, 1.0f));
             }
